@@ -1,18 +1,26 @@
 package handler
 
 import (
-	"net/http"
-	"io/ioutil"
-	"ioutil"
 	"io"
+	"io/ioutil"
+	"net/http"
+	"log"
 )
 
-func uploadHandler(response http.ResponseWriter, request *http.Request) {
-	if request.Method = "GET" {
+// UploadHandler ...
+func UploadHandler(response http.ResponseWriter, request *http.Request) {
+	log.Println("UploadHandler")
+	if request.Method == "GET" {
 		// 返回上传html页面
-		ioutil.ReadFile("./static/view/index.html")
-	} else if request.Method = "POST" {
-		// 接受文件流及存储到本地目录 
+		data, err := ioutil.ReadFile("./static/view/upload.html")
+		if err != nil {
+			log.Println("文件读取失败")
+			io.WriteString(response, "internal server error ")
+			return
+		}
+		io.WriteString(response, string(data))
+	} else if request.Method == "POST" {
+		// 接受文件流及存储到本地目录
 
 	}
 }
